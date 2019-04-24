@@ -1,7 +1,7 @@
 {
-  "name": "lisp",
+  "name": "Lisp2JS",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Lisp to JavaScrip transpiler written in JavaScript.",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
@@ -26,6 +26,14 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint src/**"
   },
-  "author": "",
-  "license": "ISC"
+  "author": {
+    "name": "Paul-Emile Joëssel",
+    "email": "pejoessel@gmail.com",
+    "url": "https://github.com/montmirail"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/montmirail/lisp2js"
+  }
 }
