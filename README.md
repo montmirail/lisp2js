@@ -12,7 +12,7 @@ To run the project, you need node and npm to be installed. Clone the project
 then run this commands:
 ```
 npm install // install all dependencies
-npm run build // build the client
+npm run build // build the client if necessary
 npm run start // start the server
 ```
 
@@ -81,21 +81,32 @@ It accepts `Integer`, `Float`, `String` and `Boolean`.
 
 `String` are declared with double-quotes `"`.
 
+```
+(defconstant hello "Hello World")
+(defvar age 18)
+(defvar price 8.5)
+(defvar isMatch true)
+
+=====
+
+const hello = "Hello World"
+let age = 18
+let price = 8.5
+let isMatch = true
+```
+
 ### Function
 
-Functions can be declared with `defun`.
-The last line of a function body will be returned.
+Functions can be declared with `defun`.The last line of a function body will be returned.
 
-This piece of code
 ```
 (defun area
     (a, b)
     ((* a b))
 )
-```
 
-will be transpiled as
-```
+=====
+
 function area(a, b) {
     return (a * b)
 };
@@ -103,9 +114,15 @@ function area(a, b) {
 
 ### Loop
 
-Lisp2JS support only for loop:
+Lisp2JS support only `for loop`
 ```
 (loop for x from 0 to 10 do ( (print x) ))
+
+=====
+
+for (let x = 0; x < 10; x++) {
+    console.log(x);
+}
 ```
 
 ### Branching
@@ -113,7 +130,10 @@ Lisp2JS support only for loop:
 Lisp2JS support simple if/else branching.
 
 ```
-(if (< x y) ((print x)) ((print y)))
+(if (< x y)
+    ((print x))
+    ((print y))
+)
 
 =====
 
@@ -160,10 +180,10 @@ While I did not stumble into any technical problems, the main issue that I faced
 lack of knowledge on parsing textual information and having never used Lisp.
 Here is how I approched those problems:
 
-1 - I learned how to use a lexer and a parser to generate an AST
-2 - I implemented a simple lexer/parser with a trial and error mindset
-3 - I looked at the Common Lisp doumentation to familiarize myself with the grammar and syntax of the language
-4 - I reimplemented the lexer/parser with a simpler version of Common Lisp
+- I learned how to use a lexer and a parser to generate an AST
+- I implemented a simple lexer/parser with a trial and error mindset
+- I looked at the Common Lisp doumentation to familiarize myself with the grammar and syntax of the language
+- I reimplemented the lexer/parser with a simpler version of Common Lisp
 
 ## Tests
 
