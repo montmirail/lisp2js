@@ -5,6 +5,7 @@ const isOperation = op => OPERATIONS.includes(op);
 const isKeywords = kw => KEYWORDS.includes(kw);
 const parseBody = body => body.map(toJs);
 
+// Tranform kebab-case to camelCase
 const normalizeSymbol = symbol => {
     const value = symbol.split('-');
 
@@ -53,15 +54,8 @@ const toIf = input => {
     return statement;
 };
 
-const toReturn = input => {
-    let returnValue = toJs(input.shift());
-    return `return ${returnValue}`;
-};
-
-const toPrint = input => {
-    const operands = input.map(toJs);
-    return `console.log(${operands});`;
-};
+const toReturn = input => `return ${toJs(input.shift())}`;
+const toPrint = input => `console.log(${input.map(toJs)});`;
 
 const toLoop = input => {
     const kind = input.shift().value;

@@ -60,6 +60,9 @@ Response (200 | 500)
 
 Lisp2JS only support a basic implementation of Lisp.
 
+#### Casing
+Variables and functions names can be in kebab-case, the transpiler will then change them into camelCase.
+
 ### Arithmetic
 
 The service accept all basics arithmetic operators
