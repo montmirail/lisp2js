@@ -90,28 +90,31 @@ const toKeywords = (symbol, input) => {
     }
 };
 
+const toSymbol = (symbol, input) => {
+    if(isOperation(symbol)) {
+        const operands = input.map(toJs);
+        return `(${operands.join(` ${symbol} `)})`;
+    } else if (isKeywords(symbol)) {
+        return toKeywords(symbol, input);
+    } else {
+        // It's a function call
+        const params = input.map(el => el.value);
+        return (`${normalizeSymbol(symbol)}(${params.join(', ')});`);
+    }
+};
+
 const toJs = input => {
-    if(Array.isArray(input)) {
-        const first = input.shift();
-
-        if(Array.isArray(first)) return toJs(first);
-
-        const symbol = first.value;
-
-        // The symbol is an arithmetic operation / comparison
-        if(isOperation(symbol)) {
-            const operands = input.map(toJs);
-            return `(${operands.join(` ${symbol} `)})`;
-        } else if (isKeywords(symbol)) {
-            return toKeywords(symbol, input);
-        } else {
-            // It's a function call
-            const params = input.map(el => el.value);
-            return (`${normalizeSymbol(symbol)}(${params.join(', ')});`);
-        }
+    if(!Array.isArray(input)) {
+        return input.value;
     }
 
-    return input.value;
+    const first = input.shift();
+
+    if(Array.isArray(first)) {
+        return toJs(first);
+    }
+
+    return toSymbol(first.value, input);
 };
 
 module.exports = input => {

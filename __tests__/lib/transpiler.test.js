@@ -49,8 +49,7 @@ describe('Transpiler', () => {
         });
 
         it('should correctly call a function', () => {
-            const lisp = `(area x y)`;
-            const result = transpiler(parser(lisp));
+            const result = transpiler(parser('(area x y)'));
 
             expect(result).toBe('area(x, y);');
         });
@@ -58,15 +57,13 @@ describe('Transpiler', () => {
 
     describe('Variables', () => {
         it('should correctly declare a variable', () => {
-            const lisp = `(defvar x 5)`;
-            const result = transpiler(parser(lisp));
+            const result = transpiler(parser('(defvar x 5)'));
 
             expect(result).toBe('let x = 5');
         });
 
         it('should correctly declare a constant', () => {
-            const lisp = `(defconstant x 5)`;
-            const result = transpiler(parser(lisp));
+            const result = transpiler(parser('(defconstant x 5)'));
 
             expect(result).toBe('const x = 5');
         });
