@@ -86,32 +86,29 @@ const toJs = input => {
 
         if(Array.isArray(first)) return toJs(first);
 
-        let symbol;
-        if(first.type === SYMBOL) {
-            symbol = first.value;
+        const symbol = first.value;
 
-            // The symbol is an arithmetic operation / comparison
-            if(isOperation(symbol)) {
-                const operands = input.map(toJs);
-                return `(${operands.join(` ${symbol} `)})`;
-            }
-
-            if(isKeywords(symbol)) {
-                switch(symbol) {
-                    case 'defun': return toFun(input);
-                    case 'defvar': return toLet(input);
-                    case 'defconstant': return toConst(input);
-                    case 'print': return toPrint(input);
-                    case 'if': return toIf(input);
-                    case 'return-from': return toReturn(input);
-                    case 'loop': return toLoop(input);
-                }
-            }
-
-            // It's a function call
-            const params = input.map(el => el.value);
-            return (`${normalizeSymbol(symbol)}(${params.join(', ')});`);
+        // The symbol is an arithmetic operation / comparison
+        if(isOperation(symbol)) {
+            const operands = input.map(toJs);
+            return `(${operands.join(` ${symbol} `)})`;
         }
+
+        if(isKeywords(symbol)) {
+            switch(symbol) {
+                case 'defun': return toFun(input);
+                case 'defvar': return toLet(input);
+                case 'defconstant': return toConst(input);
+                case 'print': return toPrint(input);
+                case 'if': return toIf(input);
+                case 'return-from': return toReturn(input);
+                case 'loop': return toLoop(input);
+            }
+        }
+
+        // It's a function call
+        const params = input.map(el => el.value);
+        return (`${normalizeSymbol(symbol)}(${params.join(', ')});`);
     }
 
     return input.value;

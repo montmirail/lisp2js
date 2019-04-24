@@ -81,7 +81,7 @@ A code like this
 )
 ```
 
-will be transipled as
+will be transpiled as
 ```
 function area(a, b) {
     return (a * b)
@@ -102,7 +102,7 @@ The `print` function will be converted to `console.log` in javascript.
 
 ## Limitations
 
-- non-ability to check for already declared variable.
+- no check for already declared variable or undeclared variables
 - no support for fat-arrow like function
 - no list support7
 - no spport for while loop
@@ -116,10 +116,12 @@ The `print` function will be converted to `console.log` in javascript.
 
 ## Tests
 
-Tests can be run with the following command:
+Tests can be run with the following commands:
 ```
 npm run test
+npm run test:coverage // generate coverage report
 ```
+
 
 ## Linter
 
