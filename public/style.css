@@ -1,0 +1,34 @@
+body{
+    font-size:62.5%
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container div {
+    flex: 1;
+}
+
+#editor .CodeMirror {
+    height: 100%;
+    font-size: 1.3rem;
+}
+
+#editor .CodeMirror-sizer.error{
+    background: rgba(255, 0, 0, 0.2);
+}
+
+#result .CodeMirror {
+    height: 100%;
+    font-size: 1.3rem;
+}
+
+h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.6rem;
+    color: #545472;
+    text-align: center;
+}
