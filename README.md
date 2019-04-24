@@ -1,5 +1,7 @@
 # Lisp2JS
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/ec6385ec7c10ef56e2bb/maintainability)](https://codeclimate.com/github/montmirail/lisp2js/maintainability)
+
 A simple Lisp to JS transipler written in JavaScript.
 It runs on NodeJS and uses Express to handle routing.
 It is shipped with live editor interface.

@@ -1,5 +1,3 @@
-const {INTEGER, SYMBOL} = require('../constants');
-
 const OPERATIONS = ['+', '-', '*', '/', '%', '<', '>', '<=', '>=', '==', '!='];
 const KEYWORDS = ['defun', 'print', 'defvar', 'defconstant', 'if', 'return-from', 'loop' ];
 
@@ -68,9 +66,9 @@ const toPrint = input => {
 const toLoop = input => {
     const kind = input.shift().value;
     const looper = input.shift().value;
-    const from = input.shift().value;
+    input.shift();
     const start = input.shift().value;
-    const to = input.shift().value;
+    input.shift();
     const end = input.shift().value;
     input.shift();
     const exps = parseBody(input.shift());
@@ -78,6 +76,18 @@ const toLoop = input => {
     if(kind !== 'for') throw new Error('This transpiler only work with for loop');
 
     return `for (let ${looper} = ${start} ; ${looper} < ${end} ; ${looper}++) { ${exps.join('')} }`;
+};
+
+const toKeywords = (symbol, input) => {
+    switch(symbol) {
+        case 'defun': return toFun(input);
+        case 'defvar': return toLet(input);
+        case 'defconstant': return toConst(input);
+        case 'print': return toPrint(input);
+        case 'if': return toIf(input);
+        case 'return-from': return toReturn(input);
+        case 'loop': return toLoop(input);
+    }
 };
 
 const toJs = input => {
@@ -92,23 +102,13 @@ const toJs = input => {
         if(isOperation(symbol)) {
             const operands = input.map(toJs);
             return `(${operands.join(` ${symbol} `)})`;
+        } else if (isKeywords(symbol)) {
+            return toKeywords(symbol, input);
+        } else {
+            // It's a function call
+            const params = input.map(el => el.value);
+            return (`${normalizeSymbol(symbol)}(${params.join(', ')});`);
         }
-
-        if(isKeywords(symbol)) {
-            switch(symbol) {
-                case 'defun': return toFun(input);
-                case 'defvar': return toLet(input);
-                case 'defconstant': return toConst(input);
-                case 'print': return toPrint(input);
-                case 'if': return toIf(input);
-                case 'return-from': return toReturn(input);
-                case 'loop': return toLoop(input);
-            }
-        }
-
-        // It's a function call
-        const params = input.map(el => el.value);
-        return (`${normalizeSymbol(symbol)}(${params.join(', ')});`);
     }
 
     return input.value;
