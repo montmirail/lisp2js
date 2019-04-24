@@ -99,7 +99,6 @@ let isMatch = true
 
 Functions can be declared with `defun`.The last line of a function body will be returned.
 
-This piece of code
 ```
 (defun area
     (a, b)
